@@ -171,7 +171,7 @@ const encodeBinaryNodeInner = (
 
 		for(const char of str) {
 			const isInNibbleRange = char >= '0' && char <= '9'
-			if(!isInNibbleRange && !(char >= 'A' && char <= 'F')) {
+			if(!isInNibbleRange && !(char >= 'A' && char <= 'F') && !(char >= 'a' && char <= 'f')) {
 				return false
 			}
 		}

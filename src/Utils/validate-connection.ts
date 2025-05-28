@@ -9,6 +9,7 @@ import { encodeBigEndian } from './generics'
 import { createSignalIdentity } from './signal'
 
 const getUserAgent = (config: SocketConfig): proto.ClientPayload.IUserAgent => {
+
 	return {
 		appVersion: {
 			primary: config.version[0],
@@ -21,9 +22,7 @@ const getUserAgent = (config: SocketConfig): proto.ClientPayload.IUserAgent => {
 		device: 'Desktop',
 		osBuildNumber: '0.1',
 		localeLanguageIso6391: 'en',
-		mnc: '000',
-		mcc: '000',
-		localeCountryIso31661Alpha2: config.countryCode,
+		localeCountryIso31661Alpha2: 'US'
 	}
 }
 
@@ -59,8 +58,7 @@ export const generateLoginNode = (userJid: string, config: SocketConfig): proto.
 	const { user, device } = jidDecode(userJid)!
 	const payload: proto.IClientPayload = {
 		...getClientPayload(config),
-		passive: false,
-		pull: true,
+		passive: true,
 		username: +user,
 		device: device,
 	}
@@ -93,7 +91,6 @@ export const generateRegistrationNode = (
 	const registerPayload: proto.IClientPayload = {
 		...getClientPayload(config),
 		passive: false,
-		pull: false,
 		devicePairingData: {
 			buildHash: appVersionBuf,
 			deviceProps: companionProto,
